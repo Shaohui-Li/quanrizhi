@@ -53,13 +53,13 @@ class Clue_action:
                             self.ha.wait_element_show(Expect_page, Expect_element)
                             self.he.write_cell_value(i, 12, "Success","add_clue")
                         except Exception as e:
-                            self.ha.save_screenshot_action("../screenshot/login.png")
+                            self.ha.save_screenshot_action("../screenshot/"+Expect_element+".png")
                             self.he.write_cell_value(i, 12, "Fail","add_clue")
                         time.sleep(1)
                 self.driver.maximize_window()#最大化屏幕
         except Exception as e:
             print(e)
-            self.he.write_cell_value(i, 12, "Fail")
+            self.he.write_cell_value(i, 12, "Fail","add_clue")
             self.ha.save_screenshot_action("../screenshot/"+element+".png")
 if __name__=="__main__":
     driver=webdriver.Chrome()

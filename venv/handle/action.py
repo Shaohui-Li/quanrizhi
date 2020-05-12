@@ -2,6 +2,7 @@
 from handle.find_element import Find_elements
 from handle.element_handle import Get_elements
 from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
 import time
 class Action:
     def __init__(self,driver):
@@ -50,6 +51,13 @@ class Action:
             except:
                 flag = False
                 return flag
+        elif type=="link":
+            try:
+                self.driver.find_element_by_partial_link_text(element)
+                return flag
+            except:
+                flag = False
+                return flag
         else:
             try:
                 self.driver.find_element_by_name(element)
@@ -65,7 +73,13 @@ class Action:
         self.fe.wait_element(page,element)
     def wait_element_click(self,page,element):
         self.fe.wait_element_click(page,element)
-
+    def wait_Recessive(self):#隐性等待
+        self.driver.implicitly_wait(10)
+    def mouse_menu(self,page,element,number=None):
+        yuansu=self.fe.find_element(page,element,number)
+        ActionChains(self.driver).move_to_element(yuansu).perform()
+    def father_son_click(self,page1,element1,page2,element2,number1=None,number2=None):
+        self.fe.father_son_element(page1,element1,page2,element2,number1,number2).click()
 if __name__=="__main__":
     driver = webdriver.Chrome()
     driver.get(url="https://schooltest.xiaogj.com")

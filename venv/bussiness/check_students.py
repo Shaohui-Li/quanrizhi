@@ -46,7 +46,7 @@ class Check:
                             return flag
                         else:
                             flag = False
-                            self.ha.save_screenshot_action("../screenshot/login.png")
+                            self.ha.save_screenshot_action("../screenshot/"+result+".png")
                             self.he.write_cell_value(i, 12, "Fail", "check_students")
                             return flag
                     if Expect_element != None:  # 如果期待元素为空，则不执行
@@ -54,13 +54,13 @@ class Check:
                             self.ha.wait_element_show(Expect_page, Expect_element)
                             self.he.write_cell_value(i, 12, "Success", "check_students")
                         except Exception as e:
-                            self.ha.save_screenshot_action("../screenshot/login.png")
                             self.he.write_cell_value(i, 12, "Fail", "check_students")
+                            self.ha.save_screenshot_action("../screenshot/"+Expect_element+".png")
                         time.sleep(1)
                     self.driver.maximize_window()
         except Exception as e:
             print(e)
-            self.he.write_cell_value(i, 12, "Fail")
+            self.he.write_cell_value(i, 12, "Fail","check_students")
             self.ha.save_screenshot_action("../screenshot/"+element+".png")
 if __name__=="__main__":
     driver=webdriver.Chrome()

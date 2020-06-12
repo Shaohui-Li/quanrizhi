@@ -22,7 +22,7 @@ class Action:
     def shut_web_action(self):#关闭浏览器
         self.driver.close()
     def get_token(self):#获取token
-        token = self.driver.execute_script('return localStorage.getItem("token");')
+        token = self.driver.execute_script('return localStorage.getItem("xgj_fulltime_session");')
         print(token)
         return token
     def get_sessionid(self):#获取sessionid

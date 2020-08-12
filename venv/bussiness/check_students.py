@@ -17,7 +17,6 @@ class Check:
                 if is_run == "yes" :
                     action_ways = self.he.get_value(i, 5, 2)
                     input_data = self.he.get_value(i, 6, 2)
-                    print(input_data)
                     page = self.he.get_value(i, 7, 2)
                     element = self.he.get_value(i, 8, 2)
                     Expect_page = self.he.get_value(i, 9, 2)
@@ -40,7 +39,7 @@ class Check:
                         self.ha.wait_element_click(page, element)
                     elif action_ways == "element_text":
                         result = self.ha.element_text(page, element, element_number)
-                        if EXpect_result != result:
+                        if EXpect_result == result:
                             flag = True
                             self.he.write_cell_value(i, 12, "Success", "check_students")
                             return flag

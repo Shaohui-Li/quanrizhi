@@ -3,7 +3,8 @@ from handle.action import Action
 from selenium import webdriver
 from handle.excel_handle import Excel_handle
 import time
-class Check:
+"""注册学生"""
+class register:
     def __init__(self,driver):
         self.ha=Action(driver)
         self.driver=driver
@@ -18,7 +19,6 @@ class Check:
                 if is_run == "yes" :
                     action_ways = self.he.get_value(i, 5, 3)
                     input_data = self.he.get_value(i, 6, 3)
-                    print(input_data)
                     page = self.he.get_value(i, 7, 3)
                     element = self.he.get_value(i, 8, 3)
                     Expect_page = self.he.get_value(i, 9, 3)
@@ -43,7 +43,7 @@ class Check:
                         self.ha.mouse_menu(page, element,number)
                     elif action_ways == "element_text":
                         result = self.ha.element_text(page, element, element_number)
-                        if result=="录取成功":
+                        if result==EXpect_result:
                             flag=True
                             self.he.write_cell_value(i, 12, "Success", "Admission")
                             return flag
@@ -67,4 +67,4 @@ class Check:
             self.ha.save_screenshot_action("../screenshot/"+element+".png")
 if __name__=="__main__":
     driver=webdriver.Chrome()
-    Check(driver).check_students()
+    register(driver).check_students()

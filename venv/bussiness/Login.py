@@ -40,9 +40,12 @@ class Login:
                         self.ha.element_text(page, element, element_number)
                     if Expect_element != None:  # 如果期待元素为空，则不执行
                         try:
+                            time.sleep(3)
                             flag = True
                             self.ha.wait_element_show(Expect_page, Expect_element)
                             self.he.write_cell_value(i, 12, "Success")
+                            # sessionid = self.driver.execute_script('return Cookies.getItem("xgj_fulltime_session");')
+                            self.he.write_cell_value(i, 11, sessionid)
                             return flag
                         except Exception as e:
                             flag = False
@@ -52,10 +55,10 @@ class Login:
                         time.sleep(1)
                     self.driver.maximize_window()  # 最大化屏幕
                     # self.assertTrue(flag, "用例执行成功")
-
         except Exception as e:
             print(e)
             self.ha.save_screenshot_action("../screenshot/"+element+".png")
+
 if __name__=="__main__":
     driver=webdriver.Chrome()
     Login(driver).login()

@@ -4,12 +4,12 @@ from handle.action import Action
 from selenium import webdriver
 from handle.excel_handle import Excel_handle
 import time
-class Check:
+class Student_charge:
     def __init__(self,driver):
         self.ha=Action(driver)
         self.driver=driver
         self.he = Excel_handle()
-    def check_students(self):
+    def charge_student(self):
         rows = self.he.get_rows(4)
         # try:
         for i in range(1, int(rows) + 1):
@@ -60,7 +60,16 @@ class Check:
                         self.ha.father_son_click(page, element, son_page, son_element, number1=element_number,number2=son_number)
                     elif action_ways == "element_text":
                         result = self.ha.element_text(page, element, element_number)
-                        self.he.write_cell_value(i, 12, result, "charge")
+                        if result == EXpect_result:
+                            self.he.write_cell_value(i, 12, "Success", "charge")
+                        else:
+                            self.he.write_cell_value(i, 12, "Fail", "charge")
+                        # self.he.write_cell_value(i, 12, result, "charge")
+                    elif action_ways == "isElementExist":
+                        result=self.ha.isElementExist(page,element)
+                        if result:
+                            # self.he.write_cell_value(i, 12, "Success", "charge")
+                            self.ha.click_action(Expect_page,Expect_element,element_number)
                     if Expect_element != None:  # 如果期待元素为空，则不执行
                         try:
                             self.ha.wait_element_show(Expect_page, Expect_element)
@@ -76,4 +85,4 @@ class Check:
         #     self.ha.save_screenshot_action("../screenshot/"+element+".png")
 if __name__=="__main__":
     driver=webdriver.Chrome()
-    Check(driver).check_students()
+    Student_charge(driver).charge_student()

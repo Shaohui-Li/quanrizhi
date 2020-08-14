@@ -65,7 +65,7 @@ class Find_elements:
             elemnt_loacte=(By.TAG_NAME,element)
         else:
             elemnt_loacte=(By.NAME,element)
-        WebDriverWait(self.driver,10,0.).until(EC.presence_of_all_elements_located(elemnt_loacte))
+        WebDriverWait(self.driver,10,0.1).until(EC.presence_of_all_elements_located(elemnt_loacte))
     def wait_element_click(self,page,element):
         elemets = self.ge.get_element(page,element)
         element = elemets.split(">")[1]

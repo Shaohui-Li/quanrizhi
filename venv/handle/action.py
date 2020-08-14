@@ -66,8 +66,10 @@ class Action:
             except:
                 flag = False
                 return flag
-    def Switch_page(self,page_name):
-        self.driver.switch_to_window(page_name)
+    def switch_page(self,count):
+        handles=self.driver.window_handles
+        self.driver.switch_to_window(handles[count-1])
+        return handles
     def wait_action(self,seconds):
         time.sleep(seconds)
     def wait_element_show(self,page,element):
@@ -81,6 +83,8 @@ class Action:
         ActionChains(self.driver).move_to_element(yuansu).perform()
     def father_son_click(self,page1,element1,page2,element2,number1=None,number2=None):
         self.fe.father_son_element(page1,element1,page2,element2,number1,number2).click()
+    def father_son_input(self,page1,element1,page2,element2,data,number1=None,number2=None):
+        self.fe.father_son_element(page1,element1,page2,element2,number1,number2).send_keys(data)
     #生成手机号码
     def createPhone(self):
         for k in range(10):

@@ -81,10 +81,15 @@ class Action:
     def mouse_menu(self,page,element,number=None):
         yuansu=self.fe.find_element(page,element,number)
         ActionChains(self.driver).move_to_element(yuansu).perform()
+    def father_son_mouseaction(self,page1,element1,page2,element2,number1=None,number2=None):
+        yuansu = self.fe.father_son_element(page1,element1,page2,element2,number1=None,number2=None)
+        ActionChains(self.driver).move_to_element(yuansu).perform()
     def father_son_click(self,page1,element1,page2,element2,number1=None,number2=None):
         self.fe.father_son_element(page1,element1,page2,element2,number1,number2).click()
     def father_son_input(self,page1,element1,page2,element2,data,number1=None,number2=None):
         self.fe.father_son_element(page1,element1,page2,element2,number1,number2).send_keys(data)
+    def father_son_text(self,page1,element1,page2,element2,number1=None,number2=None):
+        return self.fe.father_son_element(page1,element1,page2,element2,number1,number2).text
     #生成手机号码
     def createPhone(self):
         for k in range(10):

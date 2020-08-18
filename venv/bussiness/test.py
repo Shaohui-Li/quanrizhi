@@ -15,6 +15,7 @@ class Test:
         rows = self.he.get_rows(6)
         # try:
         student_phone = None
+        result=None
         for i in range(1, int(rows) + 1):
             is_run = self.he.get_value(i, 4, 6)
             module_name = self.he.get_value(i, 2, 6)
@@ -52,12 +53,14 @@ class Test:
                     self.ha.wait_element_click(page, element)
                 elif action_ways == "mouse_menu":
                     self.ha.mouse_menu(page, element, element_number)
+                elif action_ways == "father_son_mouseaction":
+                    self.ha.father_son_mouseaction(page, element, pre_page, pre_element, number1=element_number,
+                                                   number2=pre_element_number)
                 elif action_ways == "switch_action":
                     handles = self.ha.switch_page(2)
                 elif action_ways == "father_son_click":
-                    print(son_number)
-                    self.ha.father_son_click(page, element, son_page, son_element, number1=element_number,
-                                             number2=son_number)
+                    self.ha.father_son_click(page, element, pre_page, pre_element, number1=element_number,
+                                             number2=pre_element_number)
                 elif action_ways == "father_son_input":
                     self.ha.father_son_input(page, element, pre_page, pre_element, input_data, element_number,
                                              pre_element_number)

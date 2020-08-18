@@ -3,6 +3,7 @@ from handle.action import Action
 from selenium import webdriver
 from handle.excel_handle import Excel_handle
 import time
+"""审核学生"""
 class Check:
     def __init__(self,driver):
         self.ha=Action(driver)

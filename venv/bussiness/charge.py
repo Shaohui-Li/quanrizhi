@@ -4,13 +4,13 @@ from handle.action import Action
 from selenium import webdriver
 from handle.excel_handle import Excel_handle
 import time
-"""充值"""
-class Student_charge:
+"""创建订单"""
+class Create_order:
     def __init__(self,driver):
         self.ha=Action(driver)
         self.driver=driver
         self.he = Excel_handle()
-    def charge_student(self):
+    def create_order(self):
         rows = self.he.get_rows(4)
         # try:
         for i in range(1, int(rows) + 1):
@@ -62,28 +62,28 @@ class Student_charge:
                     elif action_ways == "element_text":
                         result = self.ha.element_text(page, element, element_number)
                         if result == EXpect_result:
-                            self.he.write_cell_value(i, 12, "Success", "charge")
+                            self.he.write_cell_value(i, 12, "Success", "Create_order")
                         else:
-                            self.he.write_cell_value(i, 12, "Fail", "charge")
-                        # self.he.write_cell_value(i, 12, result, "charge")
+                            self.he.write_cell_value(i, 12, "Fail", "Create_order")
+                        # self.he.write_cell_value(i, 12, result, "Create_order")
                     elif action_ways == "isElementExist":
                         result=self.ha.isElementExist(page,element)
                         if result:
-                            # self.he.write_cell_value(i, 12, "Success", "charge")
+                            # self.he.write_cell_value(i, 12, "Success", "Create_order")
                             self.ha.click_action(Expect_page,Expect_element,element_number)
                     if Expect_element != None:  # 如果期待元素为空，则不执行
                         try:
                             self.ha.wait_element_show(Expect_page, Expect_element)
-                            self.he.write_cell_value(i, 12, "Success", "charge")
+                            self.he.write_cell_value(i, 12, "Success", "Create_order")
                         except Exception as e:
-                            self.he.write_cell_value(i, 12, "Fail", "charge")
+                            self.he.write_cell_value(i, 12, "Fail", "Create_order")
                             self.ha.save_screenshot_action("../screenshot/" + Expect_element + ".png")
                         time.sleep(1)
                     self.driver.maximize_window()
         # except Exception as e:
         #     print(e)
-        #     self.he.write_cell_value(i, 12, "Fail","charge")
+        #     self.he.write_cell_value(i, 12, "Fail","Create_order")
         #     self.ha.save_screenshot_action("../screenshot/"+element+".png")
 if __name__=="__main__":
     driver=webdriver.Chrome()
-    Student_charge(driver).charge_student()
+    Create_order(driver).create_order()

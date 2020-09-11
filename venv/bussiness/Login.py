@@ -13,7 +13,7 @@ class Login:
         rows = self.he.get_rows()
         try:
             for i in range(1, int(rows) + 1):
-                is_run = self.he.get_value(i, 4)
+                is_run = self.he.get_value(i, 4,0)
                 if is_run == "yes":
                     action_ways = self.he.get_value(i, 5)  # 获取页面操作方法
                     input_data = self.he.get_value(i, 6)  # 获取输入内容
@@ -44,16 +44,15 @@ class Login:
                             time.sleep(3)
                             flag = True
                             self.ha.wait_element_show(Expect_page, Expect_element)
-                            self.he.write_cell_value(i, 12, "Success")
+                            self.he.write_cell_value(i, 12, "Success","login")
                             # sessionid = self.driver.execute_script('return Cookies.getItem("xgj_fulltime_session");')
-                            self.he.write_cell_value(i, 11, sessionid)
+                            # self.he.write_cell_value(i, 11, sessionid,"login")
                             return flag
                         except Exception as e:
                             flag = False
                             self.ha.save_screenshot_action("../screenshot/"+Expect_element+".png")
-                            self.he.write_cell_value(i, 12, "Fail")
+                            self.he.write_cell_value(i, 12, "Fail","login")
                             return flag
-                        time.sleep(1)
                     self.driver.maximize_window()  # 最大化屏幕
                     # self.assertTrue(flag, "用例执行成功")
         except Exception as e:

@@ -34,6 +34,7 @@ class Add_staff:
                 son_element=self.he.get_value(i, 18, 6)
                 son_number=self.he.get_value(i, 19, 6)
                 pre_flag = True
+                flag=True
                 if action_ways == "open_browser":
                     self.ha.open_url(input_data)
                 elif action_ways == "input_action":
@@ -78,9 +79,13 @@ class Add_staff:
                     result = self.ha.element_text(page, element, element_number)
                     print(result)
                     if result == name:
+                        flag=True
                         self.he.write_cell_value(i, 12, "Success", "add_staff")
+                        return flag
                     else:
+                        flag=False
                         self.he.write_cell_value(i, 12, "Fail", "add_staff")
+                        return flag
                     # self.he.write_cell_value(i, 12, result, "add_staff")
                 elif action_ways == "isElementExist":
                     result = self.ha.isElementExist(page, element)

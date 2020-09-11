@@ -9,7 +9,7 @@ class register:
         self.ha=Action(driver)
         self.driver=driver
         self.he = Excel_handle()
-    def check_students(self):
+    def regist(self):
         rows = self.he.get_rows(3)
         student_name="学生名字"
         try:
@@ -67,4 +67,4 @@ class register:
             self.ha.save_screenshot_action("../screenshot/"+element+".png")
 if __name__=="__main__":
     driver=webdriver.Chrome()
-    register(driver).check_students()
+    register(driver).regist()

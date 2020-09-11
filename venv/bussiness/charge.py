@@ -60,11 +60,16 @@ class Create_order:
                         print(son_number)
                         self.ha.father_son_click(page, element, son_page, son_element, number1=element_number,number2=son_number)
                     elif action_ways == "element_text":
+                        flag = True
                         result = self.ha.element_text(page, element, element_number)
                         if result == EXpect_result:
+                            flag = True
                             self.he.write_cell_value(i, 12, "Success", "Create_order")
+                            return flag
                         else:
+                            flag=False
                             self.he.write_cell_value(i, 12, "Fail", "Create_order")
+                            return flag
                         # self.he.write_cell_value(i, 12, result, "Create_order")
                     elif action_ways == "isElementExist":
                         result=self.ha.isElementExist(page,element)

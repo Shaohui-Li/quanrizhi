@@ -13,7 +13,7 @@ class Test_UI(unittest.TestCase):
         start_time=datetime.datetime.now()
         option = webdriver.ChromeOptions()
         mobileEmulation = {'deviceName': 'Apple iPhone X'}
-        options.add_experimental_option('mobileEmulation', mobileEmulation)
+        option.add_experimental_option('mobileEmulation', mobileEmulation)
         option.add_argument('headless')
         self.driver = webdriver.Chrome(chrome_options=option)
         print("测试开始")

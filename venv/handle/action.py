@@ -2,9 +2,13 @@
 from handle.find_element import Find_elements
 from handle.element_handle import Get_elements
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 import time
 import random
+import datetime
+
+
 class Action:
     def __init__(self,driver):
         self.fe=Find_elements(driver)
@@ -32,7 +36,7 @@ class Action:
         return sessionid
     def element_text(self,page,element,number=None):#获取元素文本内容
         return self.fe.find_element(page,element,number).text
-    def isElementExist(self,page,pageelement):
+    def isElementExist(self,page,pageelement):#确认元素是否存在
         elemets = self.ge.get_element(page,pageelement)
         element = elemets.split(">")[1]
         type = elemets.split(">")[0]
@@ -66,19 +70,19 @@ class Action:
             except:
                 flag = False
                 return flag
-    def switch_page(self,count):
+    def switch_page(self,count):#切换页面
         handles=self.driver.window_handles
         self.driver.switch_to_window(handles[count-1])
         return handles
-    def wait_action(self,seconds):
+    def wait_action(self,seconds):#强制等待
         time.sleep(seconds)
-    def wait_element_show(self,page,element):
+    def wait_element_show(self,page,element):#等待元素出现
         self.fe.wait_element(page,element)
     def wait_element_click(self,page,element):
         self.fe.wait_element_click(page,element)
     def wait_Recessive(self):#隐性等待
         self.driver.implicitly_wait(10)
-    def mouse_menu(self,page,element,number=None):
+    def mouse_menu(self,page,element,number=None):#鼠标移动
         yuansu=self.fe.find_element(page,element,number)
         ActionChains(self.driver).move_to_element(yuansu).perform()
     def father_son_mouseaction(self,page1,element1,page2,element2,number1=None,number2=None):
@@ -124,6 +128,59 @@ class Action:
         last_name=self.GBK2312()
         name = first_name + second_name + last_name
         return name
+    def data_input(self,page,element,number):
+        """日期输入前置操作，去掉readonly属性  仅适用于PC端"""
+        elemets=self.ge.get_element(page,element)
+        page_element = elemets.split(">")[1]
+        js1 = "document.getElementsByClassName('%s')[%d].removeAttribute('readonly')"%(page_element,number)
+        self.driver.execute_script(js1)
+    def scroll_page(self,page,element,number):
+        """页面滑动"""
+        page_element=self.fe.find_element(page,element,number)
+        self.driver.execute_script("arguments[0].scrollIntoView();", page_element)
+    def page_scroll(self,page, element, number):
+        self.fe.find_element(page, element, number).send_keys(Keys.TAB)
+    def ident_generator(self):
+        # 身份证号的前两位，省份代号
+        province = ('11', '12', '13', '14', '15', '21', '22', '23', '31', '32', '33', '34', '35',
+                    '36', '37', '41', '42', '43', '44', '45', '46', '50', '51', '52', '53', '54', '61', '62', '63',
+                    '64', '65', '71', '81', '82')
+        # 第3-第6位为市和区的代码。这里傻瓜式的设置为随机4位数(我知道这里没有0000-0999)
+        district = random.randint(1000, 9999)
+        # 第7-第14位出生的年月日的代码，这里设置的是，大于等于18岁左右，小于68岁左右
+        birthdate = (datetime.date.today() - datetime.timedelta(days=random.randint(6500, 25000)))
+        # 第15-第16位为户籍所在地派出所。这里傻瓜式的设置为随机2位数
+        police_station = random.randint(10, 99)
+        # 第17位性别
+        gender = random.randrange(0, 9, 1)
+
+        # 拼接出身份证号的前17位
+        ident = province[random.randint(0, 33)] + str(district) + birthdate.strftime("%Y%m%d") + str(
+            police_station) + str(gender)
+
+        # 将前面的身份证号码17位数分别乘以不同的系数，系数见coe，然后将这17位数字和系数相乘的结果相加。用加出来和除以11，看余数是多少？
+        coe = {1: 7, 2: 9, 3: 10, 4: 5, 5: 8, 6: 4, 7: 2, 8: 1, 9: 6, 10: 3, 11: 7, 12: 9, 13: 10, 14: 5, 15: 8, 16: 4,
+               17: 2}
+        summation = 0
+
+        # ident[i:i+1]使用的是python的切片获得每位数字
+        for i in range(17):
+            summation = summation + int(ident[i:i + 1]) * coe[i + 1]
+
+        # 用余数对照key得到校验码，比如余数为2，则校验码（第18位）为X
+        key = {0: '1', 1: '0', 2: 'X', 3: '9', 4: '8', 5: '7', 6: '6', 7: '5', 8: '4', 9: '3', 10: '2'}
+        check_code = key[summation % 11]
+        return ident + check_code
+    def registration_number(self):
+        """生成学籍号"""
+        num = random.randint(1000000, 10000000)
+        capa = chr(random.randint(65, 90))
+        capb = chr(random.randint(65, 90))
+        vercode = capa + capb + str(num)
+        return vercode
 if __name__=="__main__":
     driver = webdriver.Chrome()
-    driver.get(url="https://schooltest.xiaogj.com")
+    # driver.get(url="https://schooltest.xiaogj.com")
+    print(Action(driver).ident_generator())
+    print(Action(driver).registration_number())
+

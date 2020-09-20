@@ -57,19 +57,19 @@ class Clue_action:
                             return flag
                     if Expect_element != None:  # 如果期待元素为空，则不执行
                         try:
-                            flag = True
                             self.ha.wait_element_show(Expect_page, Expect_element)
                             self.he.write_cell_value(i, 12, "Success","add_clue")
                         except Exception as e:
-                            flag = False
                             self.ha.save_screenshot_action("../screenshot/"+Expect_element+".png")
                             self.he.write_cell_value(i, 12, "Fail","add_clue")
                         time.sleep(1)
                 self.driver.maximize_window()#最大化屏幕
         except Exception as e:
             print(e)
+            flag = False
             self.he.write_cell_value(i, 12, "Fail","add_clue")
             self.ha.save_screenshot_action("../screenshot/"+element+".png")
+            return flag
 if __name__=="__main__":
     driver=webdriver.Chrome()
     Clue_action(driver).add_clue()

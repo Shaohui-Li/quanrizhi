@@ -56,9 +56,10 @@ class Login:
                     self.driver.maximize_window()  # 最大化屏幕
                     # self.assertTrue(flag, "用例执行成功")
         except Exception as e:
+            flag = False
             print(e)
             self.ha.save_screenshot_action("../screenshot/"+element+".png")
-
+            return flag
 if __name__=="__main__":
     driver=webdriver.Chrome()
     Login(driver).login()

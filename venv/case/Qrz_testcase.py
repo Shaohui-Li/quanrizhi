@@ -1,5 +1,5 @@
 #coding=utf-8
-from bussiness import Login,add_clue,add_clue_pc,add_staff,admit_students,check_students,Create_clue_order,Delete_clue
+from bussiness import Login,add_clue,add_clue_pc,add_staff,admit_students,check_students,Create_clue_order,Create_student_order,Delete_clue
 import unittest
 from selenium import webdriver
 import HTMLTestRunner
@@ -64,4 +64,5 @@ if __name__=="__main__":
         print(result)
     f.close()
     media_id=reboat_request.Reboat_request().reboat_upload_file(report_path)
-    reboat_request.Reboat_request().reboat_fileadress(media_id)
+    reboat_request.Reboat_request()\
+        .reboat_fileadress(media_id)

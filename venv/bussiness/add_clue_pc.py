@@ -64,7 +64,7 @@ class Clue_action:
                 elif action_ways == "element_text":
                     result = self.ha.element_text(page, element, element_number)
                     print(result)
-                    if result == name:
+                    if result == EXpect_result:
                         flag = True
                         self.he.write_cell_value(i, 12, "Success", "add_clue_pc")
                         return flag

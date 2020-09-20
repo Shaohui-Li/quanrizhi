@@ -128,18 +128,37 @@ class Action:
         last_name=self.GBK2312()
         name = first_name + second_name + last_name
         return name
+
     def data_input(self,page,element,number):
         """日期输入前置操作，去掉readonly属性  仅适用于PC端"""
         elemets=self.ge.get_element(page,element)
-        page_element = elemets.split(">")[1]
-        js1 = "document.getElementsByClassName('%s')[%d].removeAttribute('readonly')"%(page_element,number)
+        element = elemets.split(">")[1]
+        type = elemets.split(">")[0]
+        if number==None:
+            try:
+                if type=="id":
+                     js1 = "document.getElementById('%s').removeAttribute('readonly')"%(element)
+                elif type=="class":
+                    js1 = "document.getElementsByClassName('%s').removeAttribute('readonly')"%(element)
+            except:
+                return None
+        else:
+            try:
+                if type == "class":
+                    js1 = "document.getElementsByClassName('%s')[%d].removeAttribute('readonly')"%(element,number)
+            except:
+                return None
         self.driver.execute_script(js1)
+
     def scroll_page(self,page,element,number):
         """页面滑动"""
         page_element=self.fe.find_element(page,element,number)
         self.driver.execute_script("arguments[0].scrollIntoView();", page_element)
+
     def page_scroll(self,page, element, number):
+        """页面tab键  元素必须是输入框才可以使用"""
         self.fe.find_element(page, element, number).send_keys(Keys.TAB)
+
     def ident_generator(self):
         # 身份证号的前两位，省份代号
         province = ('11', '12', '13', '14', '15', '21', '22', '23', '31', '32', '33', '34', '35',

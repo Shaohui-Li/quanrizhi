@@ -1,5 +1,7 @@
 #coding=utf-8
-from bussiness import Login,add_clue,add_clue_pc,add_staff,admit_students,check_students,Create_clue_order,Create_student_order,Delete_clue
+import sys
+sys.path.append(r"D:\project\quanrizhi\venv")
+from bussiness import Login,add_clue,add_clue_pc,add_clue_phone,add_staff,admit_students,check_students,Create_clue_order,Create_student_order,Delete_clue
 import unittest
 from selenium import webdriver
 import HTMLTestRunner
@@ -11,9 +13,9 @@ import datetime
 class Test_UI(unittest.TestCase):
     def setUp(self):
         start_time=datetime.datetime.now()
-        option = webdriver.ChromeOptions()
-        option.add_argument('headless')
-        self.driver = webdriver.Chrome(chrome_options=option)
+        self.option = webdriver.ChromeOptions()
+        self.option.add_argument('headless')
+        self.driver = webdriver.Chrome(chrome_options=self.option)
         print("测试开始")
     def test_login(self):
         result=Login.Login(self.driver).login()
@@ -23,6 +25,12 @@ class Test_UI(unittest.TestCase):
         self.assertTrue(result)
     def test_add_PC_clue(self):
         result = add_clue_pc.Clue_action(self.driver).add_clue()
+        self.assertTrue(result)
+    def test_add_clue_phone(self):
+        mobileEmulation = {'deviceName': 'iPhone X'}
+        self.option.add_experimental_option('mobileEmulation', mobileEmulation)
+        self.driver = webdriver.Chrome(chrome_options=self.option)
+        result=add_clue_phone.Clue_action(self.driver).add_clue()
         self.assertTrue(result)
     def test_add_staff(self):
         result=add_staff.Add_staff(self.driver).add_staff()
@@ -43,12 +51,14 @@ class Test_UI(unittest.TestCase):
         Delete_clue.Delete_clue(self.driver).delete_clue()
     def tearDown(self) -> None:
         end_time = datetime.datetime.now()
+        self.driver.quit()
         print("测试结束")
 if __name__=="__main__":
     suite = unittest.TestSuite()
     suite.addTest(Test_UI("test_login"))
     suite.addTest(Test_UI("test_add_clue"))
     suite.addTest(Test_UI("test_add_PC_clue"))
+    suite.addTest(Test_UI("test_add_clue_phone"))
     suite.addTest(Test_UI("test_add_staff"))
     suite.addTest(Test_UI("test_check_student"))
     suite.addTest(Test_UI("test_admit_student"))

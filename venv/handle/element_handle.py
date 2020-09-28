@@ -1,4 +1,7 @@
 #coding=utf-8
+import sys
+sys.path.append(r"D:\project\quanrizhi\venv\lib\site-packages")
+sys.path.append(r"D:\project\quanrizhi\venv\config")
 import configparser
 class Get_elements:
     def __init__(self):

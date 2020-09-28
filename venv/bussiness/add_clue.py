@@ -1,4 +1,6 @@
 #coding=utf-8
+import sys
+sys.path.append(r"D:\project\quanrizhi\venv")
 from handle.action import Action
 from selenium import webdriver
 from handle.excel_handle import Excel_handle
@@ -26,6 +28,7 @@ class Clue_action:
                     element_number = self.he.get_value(i, 13, 1)
                     if action_ways == "open_browser":
                         self.ha.open_url(input_data)
+                        self.driver.maximize_window()  # 最大化屏幕
                     elif action_ways == "input_action":
                         if input_data=="姓名":
                             input_data=self.ha.create_name()
@@ -63,7 +66,6 @@ class Clue_action:
                             self.ha.save_screenshot_action("../screenshot/"+Expect_element+".png")
                             self.he.write_cell_value(i, 12, "Fail","add_clue")
                         time.sleep(1)
-                self.driver.maximize_window()#最大化屏幕
         except Exception as e:
             print(e)
             flag = False

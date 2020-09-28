@@ -44,6 +44,7 @@ class Create_student_order:
                     if pre_flag == True and pre_element == None:
                         if action_ways == "open_browser":
                             self.ha.open_url(input_data)
+                            self.driver.maximize_window()
                         elif action_ways == "input_action":
                             self.ha.input_action(page, element, input_data, element_number)
                         elif action_ways == "click_action":
@@ -87,7 +88,6 @@ class Create_student_order:
                                 self.he.write_cell_value(i, 12, "Fail", "Create_student_order")
                                 self.ha.save_screenshot_action("../screenshot/" + Expect_element + ".png")
                             time.sleep(1)
-                        self.driver.maximize_window()
         except Exception as e:
             print(e)
             self.he.write_cell_value(i, 12, "Fail","Create_student_order")

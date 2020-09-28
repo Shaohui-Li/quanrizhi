@@ -37,6 +37,7 @@ class Delete_clue:
                 pre_flag = True
                 if action_ways == "open_browser":
                     self.ha.open_url(input_data)
+                    self.driver.maximize_window()
                 elif action_ways == "input_action":
                     self.ha.input_action(page, element, input_data, element_number)
                 elif action_ways == "search_action":
@@ -93,7 +94,6 @@ class Delete_clue:
                         self.he.write_cell_value(i, 12, "Fail", "delete_clue")
                         self.ha.save_screenshot_action("../screenshot/" + Expect_element + ".png")
                     time.sleep(1)
-                self.driver.maximize_window()
         return flag
         # except Exception as e:
         #     # flag=False

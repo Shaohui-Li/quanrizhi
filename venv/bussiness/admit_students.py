@@ -27,6 +27,7 @@ class register:
                     element_number = self.he.get_value(i, 13, 3)
                     if action_ways == "open_browser":
                         self.ha.open_url(input_data)
+                        self.driver.maximize_window()
                     elif action_ways == "input_action":
                         self.ha.input_action(page, element, input_data, element_number)
                     elif action_ways == "click_action":
@@ -60,7 +61,6 @@ class register:
                             self.he.write_cell_value(i, 12, "Fail", "Admission")
                             self.ha.save_screenshot_action("../screenshot/" + Expect_element + ".png")
                         time.sleep(1)
-                    self.driver.maximize_window()
         except Exception as e:
             print(e)
             self.he.write_cell_value(i, 12, "Fail","Admission")

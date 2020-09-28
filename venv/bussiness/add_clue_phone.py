@@ -76,10 +76,12 @@ class Clue_action:
                             flag = True
                             self.ha.wait_element_show(Expect_page, Expect_element)
                             self.he.write_cell_value(i, 12, "Success", "add_clue_phone")
+                            return flag
                         except Exception as e:
                             flag = False
                             self.ha.save_screenshot_action("../screenshot/" + Expect_element + ".png")
                             self.he.write_cell_value(i, 12, "Fail", "add_clue_phone")
+                            return flag
                         time.sleep(1)
         except Exception as e:
             print(e)

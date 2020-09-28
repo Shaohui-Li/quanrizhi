@@ -37,6 +37,7 @@ class Add_staff:
                     flag = True
                     if action_ways == "open_browser":
                         self.ha.open_url(input_data)
+                        self.driver.maximize_window()
                     elif action_ways == "input_action":
                         if input_data == "姓名":
                             input_data = self.ha.create_name()
@@ -100,7 +101,6 @@ class Add_staff:
                             self.he.write_cell_value(i, 12, "Fail", "add_staff")
                             self.ha.save_screenshot_action("../screenshot/" + Expect_element + ".png")
                         time.sleep(1)
-                    self.driver.maximize_window()
         except Exception as e:
             print(e)
             self.he.write_cell_value(i, 12, "Fail","add_staff")

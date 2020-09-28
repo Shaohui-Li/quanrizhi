@@ -1,7 +1,11 @@
 #coding=utf-8
+import sys
+sys.path.append(r"D:\project\quanrizhi\venv\lib\site-packages")
+sys.path.append(r"D:\project\quanrizhi\venv\config")
 import openpyxl
 import os
 base_path=os.path.dirname(os.getcwd())
+print(base_path)
 class Excel_handle:
     def load_excel(self,file_path=None):
         if file_path==None:
@@ -66,3 +70,5 @@ class Excel_handle:
         wb=self.load_excel(index)
         ws=wb.active
         ws.delete_rows(i)
+if __name__=="__main__":
+    Excel_handle().load_excel()

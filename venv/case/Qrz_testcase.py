@@ -1,7 +1,7 @@
 #coding=utf-8
 import sys
 sys.path.append(r"D:\project\quanrizhi\venv")
-from bussiness import Login,add_clue,add_clue_pc,add_clue_phone,add_staff,admit_students,check_students,Create_clue_order,Create_student_order,Delete_clue
+from bussiness import Login,add_clue,add_clue_pc,add_clue_phone,add_student,add_staff,admit_students,check_students,Create_clue_order,Create_student_order,student_charge,Delete_clue
 import unittest
 from selenium import webdriver
 import HTMLTestRunner
@@ -22,6 +22,9 @@ class Test_UI(unittest.TestCase):
         self.assertTrue(result)
     def test_add_clue(self):
         result=add_clue.Clue_action(self.driver).add_clue()
+        self.assertTrue(result)
+    def test_add_student(self):
+        result = add_student.Student_action(self.driver).add_student()
         self.assertTrue(result)
     def test_add_PC_clue(self):
         result = add_clue_pc.Clue_action(self.driver).add_clue()
@@ -46,6 +49,9 @@ class Test_UI(unittest.TestCase):
         self.assertTrue(result)
     def test_Create_student_order(self):
         result = Create_student_order.Create_student_order(self.driver).Create_student_order()
+        self.assertTrue(result)
+    def test_student_charge(self):
+        result = student_charge.Charge(self.driver).charge()
         self.assertTrue(result)
     def test_delete_clue(self):
         Delete_clue.Delete_clue(self.driver).delete_clue()
@@ -73,6 +79,5 @@ if __name__=="__main__":
         result=runner.run(suite)
         print(result)
     f.close()
-    # media_id=reboat_request.Reboat_request().reboat_upload_file(report_path)
-    # reboat_request.Reboat_request()\
-    #     .reboat_fileadress(media_id)
+    media_id=reboat_request.Reboat_request().reboat_upload_file(report_path)
+    reboat_request.Reboat_request().reboat_fileadress(media_id)

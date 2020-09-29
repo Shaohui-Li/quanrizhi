@@ -65,7 +65,6 @@ class Clue_action:
                         except Exception as e:
                             self.ha.save_screenshot_action("../screenshot/"+Expect_element+".png")
                             self.he.write_cell_value(i, 12, "Fail","add_clue")
-                        time.sleep(1)
         except Exception as e:
             print(e)
             flag = False
@@ -74,4 +73,5 @@ class Clue_action:
             return flag
 if __name__=="__main__":
     driver=webdriver.Chrome()
-    Clue_action(driver).add_clue()
+    if(Clue_action(driver).add_clue()):
+        print("执行成功")

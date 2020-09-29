@@ -62,7 +62,7 @@ class Clue_action:
                     elif action_ways == "element_text":
                         result = self.ha.element_text(page, element, element_number)
                         print(result)
-                        if result == name:
+                        if result == EXpect_result:
                             flag = True
                             self.he.write_cell_value(i, 12, "Success", "add_clue_phone")
                             return flag
@@ -76,18 +76,14 @@ class Clue_action:
                             flag = True
                             self.ha.wait_element_show(Expect_page, Expect_element)
                             self.he.write_cell_value(i, 12, "Success", "add_clue_phone")
-                            return flag
                         except Exception as e:
                             flag = False
                             self.ha.save_screenshot_action("../screenshot/" + Expect_element + ".png")
                             self.he.write_cell_value(i, 12, "Fail", "add_clue_phone")
-                            return flag
-                        time.sleep(1)
         except Exception as e:
             print(e)
             self.he.write_cell_value(i, 12, "Fail","add_clue_phone")
             self.ha.save_screenshot_action("../screenshot/"+element+".png")
-            time.sleep(30)
 if __name__=="__main__":
     option = webdriver.ChromeOptions()
     mobileEmulation = {'deviceName': 'iPhone X'}

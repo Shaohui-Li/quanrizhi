@@ -15,7 +15,7 @@ class Check:
             for i in range(1, int(rows) + 1):
                 is_run = self.he.get_value(i, 4, 2)
                 module_name = self.he.get_value(i, 2, 2)
-                if is_run == "yes" :
+                if is_run == "yes":
                     action_ways = self.he.get_value(i, 5, 2)
                     input_data = self.he.get_value(i, 6, 2)
                     page = self.he.get_value(i, 7, 2)
@@ -47,7 +47,7 @@ class Check:
                             return flag
                         else:
                             flag = False
-                            self.ha.save_screenshot_action("../screenshot/"+result+".png")
+                            self.ha.save_screenshot_action("../screenshot/" + result + ".png")
                             self.he.write_cell_value(i, 12, "Fail", "check_students")
                             return flag
                     if Expect_element != None:  # 如果期待元素为空，则不执行
@@ -56,8 +56,7 @@ class Check:
                             self.he.write_cell_value(i, 12, "Success", "check_students")
                         except Exception as e:
                             self.he.write_cell_value(i, 12, "Fail", "check_students")
-                            self.ha.save_screenshot_action("../screenshot/"+Expect_element+".png")
-                        time.sleep(1)
+                            self.ha.save_screenshot_action("../screenshot/" + Expect_element + ".png")
         except Exception as e:
             print(e)
             self.he.write_cell_value(i, 12, "Fail","check_students")

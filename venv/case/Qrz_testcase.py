@@ -73,6 +73,6 @@ if __name__=="__main__":
         result=runner.run(suite)
         print(result)
     f.close()
-    media_id=reboat_request.Reboat_request().reboat_upload_file(report_path)
-    reboat_request.Reboat_request()\
-        .reboat_fileadress(media_id)
+    # media_id=reboat_request.Reboat_request().reboat_upload_file(report_path)
+    # reboat_request.Reboat_request()\
+    #     .reboat_fileadress(media_id)

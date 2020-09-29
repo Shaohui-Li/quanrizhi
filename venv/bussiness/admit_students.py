@@ -60,7 +60,6 @@ class register:
                         except Exception as e:
                             self.he.write_cell_value(i, 12, "Fail", "Admission")
                             self.ha.save_screenshot_action("../screenshot/" + Expect_element + ".png")
-                        time.sleep(1)
         except Exception as e:
             print(e)
             self.he.write_cell_value(i, 12, "Fail","Admission")

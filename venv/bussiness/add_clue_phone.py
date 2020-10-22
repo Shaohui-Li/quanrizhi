@@ -65,12 +65,11 @@ class Clue_action:
                         if result == EXpect_result:
                             flag = True
                             self.he.write_cell_value(i, 12, "Success", "add_clue_phone")
-                            return flag
                         else:
                             flag = False
                             self.ha.save_screenshot_action("../screenshot/login.png")
                             self.he.write_cell_value(i, 12, "Fail", "add_clue_phone")
-                            return flag
+
                     if Expect_element != None:  # 如果期待元素为空，则不执行
                         try:
                             flag = True
@@ -81,9 +80,11 @@ class Clue_action:
                             self.ha.save_screenshot_action("../screenshot/" + Expect_element + ".png")
                             self.he.write_cell_value(i, 12, "Fail", "add_clue_phone")
         except Exception as e:
-            print(e)
+            flag = False
             self.he.write_cell_value(i, 12, "Fail","add_clue_phone")
             self.ha.save_screenshot_action("../screenshot/"+element+".png")
+        return flag
+
 if __name__=="__main__":
     option = webdriver.ChromeOptions()
     mobileEmulation = {'deviceName': 'iPhone X'}

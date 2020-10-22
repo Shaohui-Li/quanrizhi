@@ -1,11 +1,12 @@
 # coding=utf-8
 import requests
-#coding=utf-8
-#coding=utf-8
 from handle.action import Action
 from selenium import webdriver
 from handle.excel_handle import Excel_handle
 import time
+import os
+
+
 class Test:
     def __init__(self,driver):
         self.ha=Action(driver)
@@ -97,5 +98,8 @@ class Test:
         #     self.he.write_cell_value(i, 12, "Fail","delete_clue")
         #     self.ha.save_screenshot_action("../screenshot/"+element+".png")
 if __name__=="__main__":
-    driver=webdriver.Chrome()
-    Test(driver).test()
+    # driver=webdriver.Chrome()
+    # Test(driver).test()
+    report_name = "asda" + "全日智冒烟测试结果.html"
+    report_path = os.path.dirname(os.getcwd()) + "\\Report\\" + report_name
+    print(report_path)

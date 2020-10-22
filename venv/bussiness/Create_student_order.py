@@ -69,11 +69,9 @@ class Create_student_order:
                             if result == EXpect_result:
                                 flag = True
                                 self.he.write_cell_value(i, 12, "Success", "Create_student_order")
-                                return flag
                             else:
                                 flag = False
                                 self.he.write_cell_value(i, 12, "Fail", "Create_student_order")
-                                return flag
                             # self.he.write_cell_value(i, 12, result, "Create_student_order")
                         elif action_ways == "isElementExist":
                             result = self.ha.isElementExist(page, element)
@@ -82,15 +80,19 @@ class Create_student_order:
                                 self.ha.click_action(Expect_page, Expect_element, element_number)
                         if Expect_element != None:  # 如果期待元素为空，则不执行
                             try:
+                                flag= True
                                 self.ha.wait_element_show(Expect_page, Expect_element)
                                 self.he.write_cell_value(i, 12, "Success", "Create_student_order")
                             except Exception as e:
+                                flag = False
                                 self.he.write_cell_value(i, 12, "Fail", "Create_student_order")
                                 self.ha.save_screenshot_action("../screenshot/" + Expect_element + ".png")
         except Exception as e:
+            flag=False
             print(e)
             self.he.write_cell_value(i, 12, "Fail","Create_student_order")
             self.ha.save_screenshot_action("../screenshot/"+element+".png")
+        return flag
 if __name__=="__main__":
     driver=webdriver.Chrome()
     Create_student_order(driver).Create_student_order()

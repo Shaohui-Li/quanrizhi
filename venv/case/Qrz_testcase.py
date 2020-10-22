@@ -1,4 +1,5 @@
 #coding=utf-8
+import warnings
 import sys
 sys.path.append(r"D:\project\quanrizhi\venv")
 from bussiness import Login,add_clue,add_clue_pc,add_clue_phone,add_student,add_staff,admit_students,check_students,Create_clue_order,Create_student_order,student_charge,Delete_clue
@@ -12,6 +13,7 @@ import datetime
 
 class Test_UI(unittest.TestCase):
     def setUp(self):
+        warnings.simplefilter('ignore', ResourceWarning)
         start_time=datetime.datetime.now()
         self.option = webdriver.ChromeOptions()
         self.option.add_argument('headless')
@@ -56,9 +58,10 @@ class Test_UI(unittest.TestCase):
     def test_delete_clue(self):
         Delete_clue.Delete_clue(self.driver).delete_clue()
     def tearDown(self) -> None:
-        end_time = datetime.datetime.now()
         self.driver.quit()
         print("测试结束")
+
+
 if __name__=="__main__":
     suite = unittest.TestSuite()
     suite.addTest(Test_UI("test_login"))
@@ -73,11 +76,17 @@ if __name__=="__main__":
     suite.addTest(Test_UI("test_delete_clue"))
     time_name=str(time.strftime("%m-%d_%H-%M-%S", time.localtime())).strip(" ")
     report_name=time_name+"全日智冒烟测试结果.html"
-    report_path = os.getcwd() + "\\"+report_name
+    report_path = os.path.dirname(os.getcwd()) + "\\Report\\"+report_name
+    picture_name = datetime.datetime.now().strftime("%Y{y}%m{m}%d{d}%H{h}%M{s}").format(y="年", m="月", d="日", h="时",
+                                                                                       s="秒", )
+    report_picture = picture_name +"冒烟报告"
     with open(report_path,"wb") as f:
-        runner=HTMLTestRunner.HTMLTestRunner(stream=f,title="Quanrizhi_autotest",description="test_report")
+        runner=HTMLTestRunner.HTMLTestRunner(stream=f,title=report_picture,description="全日智GUI测试报告")
         result=runner.run(suite)
         print(result)
     f.close()
-    media_id=reboat_request.Reboat_request().reboat_upload_file(report_path)
+    piture_path=reboat_request.Reboat_request().html_to_img(report_path)
+    reboat_request.Reboat_request().upload_img(piture_path)
+    reboat_request.Reboat_request().reboat_upload_file(report_path)
+    media_id = reboat_request.Reboat_request().reboat_upload_file(report_path)
     reboat_request.Reboat_request().reboat_fileadress(media_id)

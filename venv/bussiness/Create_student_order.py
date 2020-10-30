@@ -87,6 +87,7 @@ class Create_student_order:
                                 flag = False
                                 self.he.write_cell_value(i, 12, "Fail", "Create_student_order")
                                 self.ha.save_screenshot_action("../screenshot/" + Expect_element + ".png")
+                                return flag
         except Exception as e:
             flag=False
             print(e)
@@ -95,4 +96,6 @@ class Create_student_order:
         return flag
 if __name__=="__main__":
     driver=webdriver.Chrome()
-    Create_student_order(driver).Create_student_order()
+    if(Create_student_order(driver).Create_student_order()):
+        print("用例执行成功")
+    driver.quit()

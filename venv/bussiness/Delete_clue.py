@@ -97,12 +97,16 @@ class Delete_clue:
                             flag = False
                             self.he.write_cell_value(i, 12, "Fail", "delete_clue")
                             self.ha.save_screenshot_action("../screenshot/" + Expect_element + ".png")
+                            return flag
         except Exception as e:
-            # flag=False
+            flag=False
             self.he.write_cell_value(i, 12, "Fail", "delete_clue")
             self.ha.save_screenshot_action("../screenshot/" + element + ".png")
-            return flag
         return flag
 if __name__=="__main__":
     driver=webdriver.Chrome()
-    Delete_clue(driver).delete_clue()
+    if(Delete_clue(driver).delete_clue()):
+        print("用例执行成功")
+    else:
+        print("用例执行失败")
+    driver.quit()

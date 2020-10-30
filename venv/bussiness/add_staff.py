@@ -82,11 +82,9 @@ class Add_staff:
                         if result == name:
                             flag = True
                             self.he.write_cell_value(i, 12, "Success", "add_staff")
-                            return flag
                         else:
                             flag = False
                             self.he.write_cell_value(i, 12, "Fail", "add_staff")
-                            return flag
                         # self.he.write_cell_value(i, 12, result, "add_staff")
                     elif action_ways == "isElementExist":
                         result = self.ha.isElementExist(page, element)
@@ -95,15 +93,21 @@ class Add_staff:
                             self.ha.click_action(Expect_page, Expect_element, element_number)
                     if Expect_element != None:  # 如果期待元素为空，则不执行
                         try:
+                            flag=True
                             self.ha.wait_element_show(Expect_page, Expect_element)
                             self.he.write_cell_value(i, 12, "Success", "add_staff")
                         except Exception as e:
+                            flag = False
                             self.he.write_cell_value(i, 12, "Fail", "add_staff")
                             self.ha.save_screenshot_action("../screenshot/" + Expect_element + ".png")
         except Exception as e:
             print(e)
+            flag=False
             self.he.write_cell_value(i, 12, "Fail","add_staff")
             self.ha.save_screenshot_action("../screenshot/"+element+".png")
+        return flag
 if __name__=="__main__":
     driver=webdriver.Chrome()
-    Add_staff(driver).add_staff()
+    if(Add_staff(driver).add_staff()):
+        print("用例执行成功")
+    driver.quit()

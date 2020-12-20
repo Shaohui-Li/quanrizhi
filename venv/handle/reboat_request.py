@@ -28,11 +28,11 @@ class Reboat_request():
 
         }
         result = requests.post(
-            "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=c1d60a22-b682-493e-839c-5dd8bcc30d99",
+            "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=e94dc891-6034-41bc-9e3a-fe9caab7c170",
             data=request_data, headers=hearder)
         return print(result)
     def reboat_upload_file(self,filename):
-        url="https://qyapi.weixin.qq.com/cgi-bin/webhook/upload_media?key=c1d60a22-b682-493e-839c-5dd8bcc30d99&type=file"
+        url="https://qyapi.weixin.qq.com/cgi-bin/webhook/upload_media?key=e94dc891-6034-41bc-9e3a-fe9caab7c170&type=file"
         hearder = {
             "Content-Type": "multipart/form-data",
             "Connection": "keep-alive",
@@ -53,7 +53,7 @@ class Reboat_request():
         media_id=result["media_id"]
         return media_id
     def reboat_fileadress(self,media_id):
-        url="https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=c1d60a22-b682-493e-839c-5dd8bcc30d99"
+        url="https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=e94dc891-6034-41bc-9e3a-fe9caab7c170"
         data={
             "msgtype": "file",
             "file": {
@@ -94,7 +94,7 @@ class Reboat_request():
         except Exception as e:
             return report_path
     def upload_img(self,file_name):
-        url = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=c1d60a22-b682-493e-839c-5dd8bcc30d99"
+        url = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=e94dc891-6034-41bc-9e3a-fe9caab7c170"
         # report_date = datetime.datetime.now().strftime("%Y{y}%m{m}%d{d}%H{h}%M{s}").format(y="年", m="月", d="日", h="时",                                                                                 s="秒", )
         # report_name = report_date + "冒烟报告"
         hearders = {"Content-Type": "application/json"}
@@ -134,7 +134,7 @@ class Reboat_request():
         params = {
             'timestamp': timestamp,
             'nonceStr': '62lhAiWdY3siWo4a',
-            'apikey': 'ba97cc58-6b24-42df-96fd-c952e9f7d629',
+            'apikey': 'e94dc891-6034-41bc-9e3a-fe9caab7c170',
             'signature': 'db855c4acc01f096c0c39f226583c471',
             'eventId':''
         }

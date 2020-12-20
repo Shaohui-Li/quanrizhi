@@ -95,4 +95,6 @@ if __name__=="__main__":
     driver=webdriver.Chrome()
     if(Create_clue_order(driver).Create_clue_order()):
         print("用例执行成功")
+    else:
+        print("执行失败")
     driver.quit()

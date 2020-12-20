@@ -3,9 +3,9 @@ from handle.action import Action
 from selenium import webdriver
 from handle.excel_handle import Excel_handle
 import time
+
+
 """PC添加线索"""
-
-
 class Clue_action:
     def __init__(self,driver):
         self.ha=Action(driver)
@@ -88,4 +88,9 @@ class Clue_action:
         return flag
 if __name__=="__main__":
     driver = webdriver.Chrome()
-    Clue_action(driver).add_clue()
+    if(Clue_action(driver).add_clue()):
+        print("执行成功")
+    else:
+        print("执行失败")
+    time.sleep(30)
+    driver.quit()

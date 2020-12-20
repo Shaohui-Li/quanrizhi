@@ -90,4 +90,7 @@ if __name__=="__main__":
     mobileEmulation = {'deviceName': 'iPhone X'}
     option.add_experimental_option('mobileEmulation', mobileEmulation)
     driver = webdriver.Chrome(chrome_options=option)
-    Clue_action(driver).add_clue()
+    if(Clue_action(driver).add_clue()):
+        print("执行成功")
+    else:
+        print("执行失败")

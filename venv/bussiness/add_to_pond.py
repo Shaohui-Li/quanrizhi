@@ -6,26 +6,26 @@ from selenium import webdriver
 from handle.excel_handle import Excel_handle
 import time
 """添加线索"""
-class Clue_action:
+class Cluepond_action:
     def __init__(self,driver):
         self.ha=Action(driver)
         self.driver=driver
         self.he = Excel_handle()
-    def add_clue(self):
-        rows = self.he.get_rows(1)
+    def add_clue_to_pond(self):
+        rows = self.he.get_rows(13)
         try:
             for i in range(1, int(rows) + 1):
-                is_run = self.he.get_value(i, 4, 1)
+                is_run = self.he.get_value(i, 4, 13)
                 if is_run == "yes":
-                    action_ways = self.he.get_value(i, 5, 1)
-                    input_data = self.he.get_value(i, 6, 1)
+                    action_ways = self.he.get_value(i, 5, 13)
+                    input_data = self.he.get_value(i, 6, 13)
                     # print(input_data)
-                    page = self.he.get_value(i, 7, 1)
-                    element = self.he.get_value(i, 8, 1)
-                    Expect_page = self.he.get_value(i, 9, 1)
-                    Expect_element = self.he.get_value(i, 10, 1)
-                    EXpect_result = self.he.get_value(i, 11, 1)
-                    element_number = self.he.get_value(i, 13, 1)
+                    page = self.he.get_value(i, 7, 13)
+                    element = self.he.get_value(i, 8, 13)
+                    Expect_page = self.he.get_value(i, 9, 13)
+                    Expect_element = self.he.get_value(i, 10, 13)
+                    EXpect_result = self.he.get_value(i, 11, 13)
+                    element_number = self.he.get_value(i, 13, 13)
                     if action_ways == "open_browser":
                         self.ha.open_url(input_data)
                         self.driver.maximize_window()  # 最大化屏幕
@@ -51,29 +51,28 @@ class Clue_action:
                         print(result)
                         if result == name:
                             flag = True
-                            self.he.write_cell_value(i, 12, "Success","add_clue")
+                            self.he.write_cell_value(i, 12, "Success","add_clue_to_pond")
                         else:
                             flag = False
                             self.ha.save_screenshot_action("../screenshot/login.png")
-                            self.he.write_cell_value(i, 12, "Fail","add_clue")
+                            self.he.write_cell_value(i, 12, "Fail","add_clue_to_pond")
                     if Expect_element != None:  # 如果期待元素为空，则不执行
                         try:
                             self.ha.wait_element_show(Expect_page, Expect_element)
-                            self.he.write_cell_value(i, 12, "Success","add_clue")
+                            self.he.write_cell_value(i, 12, "Success","add_clue_to_pond")
                         except Exception as e:
                             self.ha.save_screenshot_action("../screenshot/"+Expect_element+".png")
-                            self.he.write_cell_value(i, 12, "Fail","add_clue")
+                            self.he.write_cell_value(i, 12, "Fail","add_clue_to_pond")
         except Exception as e:
             print(e)
             flag = False
-            self.he.write_cell_value(i, 12, "Fail","add_clue")
+            self.he.write_cell_value(i, 12, "Fail","add_clue_to_pond")
             self.ha.save_screenshot_action("../screenshot/"+element+".png")
         return flag
-        self.driver.close()
 if __name__=="__main__":
     driver=webdriver.Chrome()
-    if(Clue_action(driver).add_clue()):
-        print("执行成功")
+    if(Cluepond_action(driver).add_clue_to_pond()):
+        print("用例执行成功")
     else:
         print("用例执行失败")
     driver.quit()

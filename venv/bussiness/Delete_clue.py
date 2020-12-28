@@ -13,8 +13,7 @@ class Delete_clue:
     def delete_clue(self):
         rows = self.he.get_rows(5)
         flag = True
-        student_phone = None
-        result = None
+        student_name = None
         try:
             for i in range(1, int(rows) + 1):
                 is_run = self.he.get_value(i, 4, 5)
@@ -70,11 +69,12 @@ class Delete_clue:
                                                           pre_element_number)
                         self.he.write_cell_value(i, 12, result2, "delete_clue")
                     elif action_ways == "element_text":
-                        # time.sleep(1)
                         result = self.ha.element_text(page, element, element_number)
-                        student_phone = result
+                        if student_name==None:
+                            student_name = result
                         if EXpect_result != None:
-                            if result == EXpect_result:
+                            print(result)
+                            if result != student_name:
                                 flag = True
                                 self.he.write_cell_value(i, 12, "Success", "delete_clue")
                             else:

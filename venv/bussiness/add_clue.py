@@ -48,7 +48,6 @@ class Clue_action:
                         self.ha.wait_element_click(page, element)
                     elif action_ways == "element_text":
                         result = self.ha.element_text(page, element, element_number)
-                        print(result)
                         if result == name:
                             flag = True
                             self.he.write_cell_value(i, 12, "Success","add_clue")
@@ -58,9 +57,11 @@ class Clue_action:
                             self.he.write_cell_value(i, 12, "Fail","add_clue")
                     if Expect_element != None:  # 如果期待元素为空，则不执行
                         try:
+                            flag = True
                             self.ha.wait_element_show(Expect_page, Expect_element)
                             self.he.write_cell_value(i, 12, "Success","add_clue")
                         except Exception as e:
+                            flag = False
                             self.ha.save_screenshot_action("../screenshot/"+Expect_element+".png")
                             self.he.write_cell_value(i, 12, "Fail","add_clue")
         except Exception as e:
@@ -69,7 +70,6 @@ class Clue_action:
             self.he.write_cell_value(i, 12, "Fail","add_clue")
             self.ha.save_screenshot_action("../screenshot/"+element+".png")
         return flag
-        self.driver.close()
 if __name__=="__main__":
     driver=webdriver.Chrome()
     if(Clue_action(driver).add_clue()):

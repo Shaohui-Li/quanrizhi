@@ -2,7 +2,7 @@
 import warnings
 import sys
 sys.path.append(r"D:\project\quanrizhi\venv")
-from bussiness import Login,add_clue,add_clue_pc,add_clue_phone,add_student,add_staff,admit_students,check_students,Create_clue_order,Create_student_order,student_charge,Delete_clue
+from bussiness import Login,add_clue,add_clue_pc,add_to_pond,add_clue_phone,add_student,add_staff,admit_students,check_students,Create_clue_order,Create_student_order,student_charge,Delete_clue
 import unittest
 from selenium import webdriver
 import HTMLTestRunner
@@ -17,12 +17,12 @@ class Test_UI(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         print("测试开始")
-        warnings.simplefilter('ignore', ResourceWarning)
-        self.option = webdriver.ChromeOptions()
-        self.option.add_argument('headless')
 
 
     def setUp(self):
+        warnings.simplefilter('ignore', ResourceWarning)
+        self.option = webdriver.ChromeOptions()
+        self.option.add_argument('headless')
         self.driver = webdriver.Chrome(chrome_options=self.option)
         print("用例开始执行")
 
@@ -32,6 +32,10 @@ class Test_UI(unittest.TestCase):
 
     def test_add_clue(self):
         result = add_clue.Clue_action(self.driver).add_clue()
+        self.assertTrue(result)
+
+    def test_add_cluepond(self):
+        result = add_to_pond.Cluepond_action(self.driver).add_clue_to_pond()
         self.assertTrue(result)
 
     def test_add_student(self):
@@ -83,13 +87,13 @@ class Test_UI(unittest.TestCase):
     @classmethod
     def tearDownClass(self) -> None:
         print("测试结束")
-        self.driver.quit()
 
 
 if __name__=="__main__":
     suite = unittest.TestSuite()
     suite.addTest(Test_UI("test_login"))
     suite.addTest(Test_UI("test_add_clue"))
+    suite.addTest(Test_UI("test_add_cluepond"))
     suite.addTest(Test_UI("test_add_PC_clue"))
     suite.addTest(Test_UI("test_add_clue_phone"))
     suite.addTest(Test_UI("test_add_staff"))

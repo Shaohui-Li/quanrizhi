@@ -58,9 +58,11 @@ class Cluepond_action:
                             self.he.write_cell_value(i, 12, "Fail","add_clue_to_pond")
                     if Expect_element != None:  # 如果期待元素为空，则不执行
                         try:
+                            flag = True
                             self.ha.wait_element_show(Expect_page, Expect_element)
                             self.he.write_cell_value(i, 12, "Success","add_clue_to_pond")
                         except Exception as e:
+                            flag = False
                             self.ha.save_screenshot_action("../screenshot/"+Expect_element+".png")
                             self.he.write_cell_value(i, 12, "Fail","add_clue_to_pond")
         except Exception as e:

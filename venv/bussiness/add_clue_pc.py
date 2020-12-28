@@ -27,6 +27,9 @@ class Clue_action:
                     EXpect_result = self.he.get_value(i, 11, 10)
                     element_number = self.he.get_value(i, 13, 10)
                     pre_condition = self.he.get_value(i, 14, 10)
+                    pre_page = self.he.get_value(i, 15, 10)  # 前置页面
+                    pre_element = self.he.get_value(i, 16, 10)  # 前置元素
+                    pre_element_number = self.he.get_value(i, 17, 10)  # 前置元素位置
                     if action_ways == "open_browser":
                         self.ha.open_url(input_data)
                         self.driver.maximize_window()  # 最大化屏幕
@@ -61,6 +64,9 @@ class Clue_action:
                         self.ha.page_scroll(page, element, element_number)
                     elif action_ways == "scroll_page":
                         self.ha.scroll_page(page, element, element_number)
+                    elif action_ways == "father_son_click":
+                        self.ha.father_son_click(page, element, pre_page, pre_element, number1=element_number,
+                                                 number2=pre_element_number)
                     elif action_ways == "element_text":
                         result = self.ha.element_text(page, element, element_number)
                         print(result)
@@ -92,5 +98,4 @@ if __name__=="__main__":
         print("执行成功")
     else:
         print("执行失败")
-    time.sleep(30)
     driver.quit()

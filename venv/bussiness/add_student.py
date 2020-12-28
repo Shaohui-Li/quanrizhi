@@ -67,12 +67,10 @@ class Student_action:
                         if result == name:
                             flag = True
                             self.he.write_cell_value(i, 12, "Success", "add_student")
-                            return flag
                         else:
                             flag = False
                             self.ha.save_screenshot_action("../screenshot/login.png")
                             self.he.write_cell_value(i, 12, "Fail", "add_student")
-                            return flag
                     if Expect_element != None:  # 如果期待元素为空，则不执行
                         try:
                             flag = True
@@ -91,3 +89,5 @@ if __name__=="__main__":
     driver = webdriver.Chrome()
     if(Student_action(driver).add_student()):
         print("执行成功")
+    else:
+        print("执行失败")

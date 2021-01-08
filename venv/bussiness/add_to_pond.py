@@ -48,14 +48,13 @@ class Cluepond_action:
                         self.ha.wait_element_click(page, element)
                     elif action_ways == "element_text":
                         result = self.ha.element_text(page, element, element_number)
-                        print(result)
                         if result == name:
                             flag = True
                             self.he.write_cell_value(i, 12, "Success","add_clue_to_pond")
                         else:
                             flag = False
                             self.ha.save_screenshot_action("../screenshot/login.png")
-                            self.he.write_cell_value(i, 12, "Fail","add_clue_to_pond")
+                            self.he.write_cell_value(i, 12,name,"add_clue_to_pond")
                     if Expect_element != None:  # 如果期待元素为空，则不执行
                         try:
                             flag = True

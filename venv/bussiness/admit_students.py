@@ -44,13 +44,15 @@ class register:
                         self.ha.mouse_menu(page, element,number)
                     elif action_ways == "element_text":
                         result = self.ha.element_text(page, element, element_number)
-                        if result==EXpect_result:
-                            flag=True
-                            self.he.write_cell_value(i, 12, "Success", "Admission")
-                        else:
-                            flag = False
+                        if student_name=="学生名字":
+                            student_name=result
+                        if result==student_name:
+                            flag=False
                             self.he.write_cell_value(i, 12, "Fail", "Admission")
                             self.ha.save_screenshot_action("../screenshot/" + student_name + ".png")
+                        else:
+                            flag = True
+                            self.he.write_cell_value(i, 12, "Success", "Admission")
                     if Expect_element != None:  # 如果期待元素为空，则不执行
                         try:
                             flag=True

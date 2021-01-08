@@ -73,7 +73,7 @@ class Clue_action:
 if __name__=="__main__":
     driver=webdriver.Chrome()
     if(Clue_action(driver).add_clue()):
-        print("执行成功")
+        print("用例执行成功")
     else:
         print("用例执行失败")
     driver.quit()

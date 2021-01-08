@@ -87,7 +87,6 @@ class Clue_action:
                             self.ha.save_screenshot_action("../screenshot/" + Expect_element + ".png")
                             self.he.write_cell_value(i, 12, "Fail", "add_clue_pc")
         except Exception as e:
-            print(e)
             flag=False
             self.he.write_cell_value(i, 12, "Fail","add_clue_pc")
             self.ha.save_screenshot_action("../screenshot/"+element+".png")
